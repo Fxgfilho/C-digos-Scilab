@@ -1,0 +1,66 @@
+// Curso: Engenharia de Controle e Automação
+// Disciplina: Instrumentação Eletrônica
+// Data: 11/05/22
+
+clc
+clear
+
+zeta1 = 0.2;
+wn = 10;
+K1 = sqrt(1-zeta1^2);
+
+time1 = [];
+y1 = [];
+k1 = 1;
+
+for t1 = 0:0.001:5
+    y1 = 1-((exp(-1*zeta1*wn*t1))/K1)*sin(wn*K1*t1 + atan(K1/zeta1));
+    yOut1(k1) = y1;
+    time1(k1) = t1;
+    k1 = k1 + 1;
+end
+
+subplot(221);
+plot2d(time1, yOut1);
+xgrid;
+title('Instrumento de segunda ordem Zeta = 0.2');
+
+zeta2 = 0.4;
+K2 = sqrt(1-zeta2^2);
+
+time2 = [];
+y2 = [];
+k2 = 1;
+
+for t2 = 0:0.001:5
+    y2 = 1-((exp(-1*zeta2*wn*t2))/K2)*sin(wn*K2*t2 + atan(K2/zeta2));
+    yOut2(k2) = y2;
+    time2(k2) = t2;
+    k2 = k2 + 1;
+end
+
+subplot(222);
+plot2d(time2, yOut2);
+xgrid;
+title('Instrumento de segunda ordem Zeta = 0.4');
+
+zeta3 = 1.2;
+K3 = sqrt(1-zeta3^2);
+
+time3 = [];
+y3 = [];
+k3 = 1;
+
+for t3 = 0:0.001:5
+    y3 = 1-((exp(-1*zeta3*wn*t3))/K3)*sin(wn*K3*t3 + atan(K3/zeta3));
+    yOut3(k3) = y3;
+    time3(k3) = t3;
+    k3 = k3 + 1;
+end
+
+subplot(223.5);
+plot2d(time3, yOut3);
+xgrid;
+title('Instrumento de segunda ordem Zeta = 1.2');
+
+
