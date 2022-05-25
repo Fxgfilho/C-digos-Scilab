@@ -1,0 +1,36 @@
+// Curso: Engenharia de Controle e Automação
+// Disciplina: Instrumentação Eletrônica
+// Data: 25/05/22
+
+clc
+clear
+
+Vp = 1
+T = 1
+delta = 0.001
+
+vOut = []
+tOut = []
+vant = -Vp
+k = 1
+
+for t = 0:delta:T
+    if t>=0 & t<=T/2 then
+        v = 4*Vp*t/T - Vp
+    elseif t>T/2 & t<T then
+        v = -4*Vp*t/T + 3*Vp
+    end
+    
+    //Derivada do sinal de entrada
+    vDif = (v-vant)/delta
+    vant = v
+    vOut(k) = v
+    tOut(k) = t
+    vDifOut(k) = vDif
+    k = k + 1
+end
+
+subplot(111)
+plot(tOut, vOut)
+plot(tOut, vDifOut, 'r')
+xgrid
