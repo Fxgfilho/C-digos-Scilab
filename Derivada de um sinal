@@ -1,36 +1,29 @@
-// Curso: Engenharia de Controle e Automação
-// Disciplina: Instrumentação Eletrônica
-// Data: 25/05/22
-
 clc
 clear
 
-Vp = 1
-T = 1
 delta = 0.001
+f = 10
+w = 2*%pi*f
+k = 1
 
 vOut = []
 tOut = []
-vant = -Vp
-k = 1
+dvDtOut = []
 
-for t = 0:delta:T
-    if t>=0 & t<=T/2 then
-        v = 4*Vp*t/T - Vp
-    elseif t>T/2 & t<T then
-        v = -4*Vp*t/T + 3*Vp
-    end
+vAnterior = 0
+
+for t = 0:delta:1
+    v = sin(w*t)
     
-    //Derivada do sinal de entrada
-    vDif = (v-vant)/delta
-    vant = v
+    dvDt = (v - vAnterior)/delta
+    vAnterior = v
+    
     vOut(k) = v
     tOut(k) = t
-    vDifOut(k) = vDif
+    dvDtOut(k) = dvDt/w
+    
     k = k + 1
 end
 
-subplot(111)
 plot(tOut, vOut)
-plot(tOut, vDifOut, 'r')
-xgrid
+plot(tOut, dvDtOut, 'r')
