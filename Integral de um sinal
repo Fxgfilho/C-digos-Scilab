@@ -1,0 +1,33 @@
+// Curso: Engenharia de Controle e Automação
+// Disciplina: Instrumentação Eletrônica
+// Aluno: Fábio Xavier Guedes Filho
+
+clc
+clear
+
+delta = 0.001
+f = 10
+w = 2*%pi*f
+k = 1
+
+vOut = []
+tOut = []
+integralOut = []
+
+intAnterior = 0
+
+for t = 0:delta:1
+    v = cos(w*t)
+    
+    integral = v*delta + intAnterior
+    intAnterior = integral
+    
+    vOut(k) = v
+    tOut(k) = t
+    integralOut(k) = integral*w
+    
+    k = k + 1
+end
+
+plot(tOut, vOut)
+plot(tOut, integralOut, 'r')
